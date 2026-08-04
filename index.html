@@ -308,6 +308,53 @@
       box-shadow: 0 8px 32px rgba(107,26,24,0.3);
     }
 
+    /* ── Name intro field ── */
+    .name-field {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 24px rgba(107,26,24,0.06);
+    }
+    .name-field label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .name-field input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: var(--font-body);
+      color: var(--text);
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .name-field input:focus {
+      outline: none;
+      border-color: var(--dark);
+    }
+
+    /* ── Form error ── */
+    .form-error {
+      display: none;
+      background: #fff5f5;
+      border: 1.5px solid #e53e3e;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 24px;
+      color: #c53030;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
     /* ── Success ── */
     .success-banner {
       display: none;
@@ -384,7 +431,12 @@
   <!-- ══ FORM ══ -->
   <main>
     <form action="/api/submit" method="POST">
-      <input type="hidden" name="_template" value="table" />
+
+      <!-- ── Nom / prénom ── -->
+      <div class="name-field">
+        <label for="prenom_nom">Votre prénom et nom</label>
+        <input type="text" id="prenom_nom" name="Prénom et nom" placeholder="Ex : Marie Dupont" autocomplete="name" />
+      </div>
 
       <!-- ── S1 · Vous & votre entreprise ── -->
       <div class="q-section" id="s1">
@@ -948,6 +1000,9 @@
       <div class="submit-section">
         <p>Merci pour votre temps et votre sincérité. Ces informations resteront strictement confidentielles et serviront uniquement à personnaliser votre parcours.</p>
         <button type="submit" class="btn-submit">Envoyer mes réponses</button>
+        <div id="form-error" class="form-error">
+          Certaines questions sont encore sans réponse. Merci de compléter l'ensemble du questionnaire avant d'envoyer.
+        </div>
       </div>
 
     </form>
@@ -958,5 +1013,43 @@
     © 2026 holistic. academy · Questionnaire confidentiel
   </footer>
 
+  <script>
+    const form = document.querySelector('form');
+    const errorBox = document.getElementById('form-error');
+
+    // Champs texte optionnels (questions conditionnelles ou libres)
+    const optionalTextareas = ['1.8 Plateforme en ligne'];
+
+    form.addEventListener('submit', function(e) {
+      let missing = false;
+
+      // Vérifier champ nom/prénom
+      const nomEl = form.querySelector('[name="Prénom et nom"]');
+      if (nomEl && !nomEl.value.trim()) missing = true;
+
+      // Vérifier toutes les textareas requises
+      form.querySelectorAll('textarea').forEach(el => {
+        if (!optionalTextareas.includes(el.name) && !el.value.trim()) missing = true;
+      });
+
+      // Vérifier les groupes radio (au moins 1 coché par groupe)
+      const radioNames = [...new Set([...form.querySelectorAll('input[type="radio"]')].map(r => r.name))];
+      radioNames.forEach(name => {
+        if (!form.querySelector(`input[type="radio"][name="${CSS.escape(name)}"]:checked`)) missing = true;
+      });
+
+      // Vérifier les groupes checkbox (au moins 1 coché par groupe)
+      const checkboxNames = [...new Set([...form.querySelectorAll('input[type="checkbox"]')].map(c => c.name))];
+      checkboxNames.forEach(name => {
+        if (!form.querySelector(`input[type="checkbox"][name="${CSS.escape(name)}"]:checked`)) missing = true;
+      });
+
+      if (missing) {
+        e.preventDefault();
+        errorBox.style.display = 'block';
+        errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  </script>
 </body>
 </html>
