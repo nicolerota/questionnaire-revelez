@@ -50,7 +50,7 @@
     }
     .header__logo img { height: 44px; width: auto; }
     .header__inner {
-      max-width: 760px;
+      max-width: 100%;
       padding-bottom: 48px;
     }
     .header__tag {
@@ -68,10 +68,11 @@
     header h1 {
       font-family: var(--font-head);
       font-weight: 900;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
       color: var(--white);
       line-height: 1.2;
       margin-bottom: 6px;
+      white-space: nowrap;
     }
     header h1 span { color: var(--sand); }
     .header__intro {
@@ -79,7 +80,7 @@
       font-size: 0.88rem;
       color: rgba(245,240,234,0.75);
       line-height: 1.85;
-      max-width: 640px;
+      max-width: 100%;
       padding: 18px 20px;
       background: rgba(255,255,255,0.06);
       border-left: 3px solid var(--sand);
@@ -349,7 +350,7 @@
     </div>
     <div class="header__inner">
       <div class="header__tag">Questionnaire pré-formation</div>
-      <h1>Questionnaire de positionnement<br><span>« Révélez votre activité »</span></h1>
+      <h1>Questionnaire de positionnement — <span>« Révélez votre activité »</span></h1>
       <div class="header__intro">
         Merci de prendre 15 à 20 minutes pour répondre à ce questionnaire avant notre première session. Il n'y a pas de bonnes ou de mauvaises réponses : plus vous êtes sincère, plus je pourrai construire un parcours réellement personnalisé pour vous. Vous pouvez cocher une ou plusieurs cases par question, et préciser votre réponse librement via l'option Autre.
       </div>
