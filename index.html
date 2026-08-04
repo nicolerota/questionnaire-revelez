@@ -356,16 +356,49 @@
     }
 
     /* ── Success ── */
-    .success-banner {
+    .success-page {
       display: none;
-      background: #e8f5e9;
-      border: 1px solid #a5d6a7;
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-bottom: 32px;
-      color: #2e7d32;
-      font-weight: 500;
+      max-width: 560px;
+      margin: 60px auto 80px;
       text-align: center;
+      padding: 0 24px;
+    }
+    .success-page__icon {
+      width: 72px;
+      height: 72px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .success-page__icon svg { width: 36px; height: 36px; }
+    .success-page__title {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .success-page__text {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .success-page__tag {
+      display: inline-block;
+      background: var(--cream);
+      border: 1px solid rgba(107,26,24,0.15);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
     }
 
     /* ── Footer ── */
@@ -430,6 +463,23 @@
 
   <!-- ══ FORM ══ -->
   <main>
+
+    <!-- ── Message de confirmation ── -->
+    <div class="success-page" id="success-page">
+      <div class="success-page__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="success-page__title">Merci pour vos réponses !</div>
+      <p class="success-page__text">
+        Votre questionnaire a bien été reçu.<br>
+        Je vais prendre le temps de lire attentivement vos réponses avant notre première session, afin de vous proposer un accompagnement vraiment personnalisé.<br><br>
+        À très vite !
+      </p>
+      <div class="success-page__tag">holistic. academy</div>
+    </div>
+
     <form action="/api/submit" method="POST">
 
       <!-- ── Nom / prénom ── -->
@@ -1014,6 +1064,14 @@
   </footer>
 
   <script>
+    // Afficher le message de confirmation si ?merci=1
+    if (new URLSearchParams(window.location.search).get('merci') === '1') {
+      document.getElementById('success-page').style.display = 'block';
+      document.querySelector('form').style.display = 'none';
+      document.querySelector('.progress-nav').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     const form = document.querySelector('form');
     const errorBox = document.getElementById('form-error');
 
