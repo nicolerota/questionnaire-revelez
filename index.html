@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Questionnaire de positionnement — Révélez votre activité</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:       #6B1A18;
+      --dark-deep:  #4E1210;
+      --amber:      #B16637;
+      --gold:       #976840;
+      --sand:       #D4AD82;
+      --cream:      #F5F0EA;
+      --cream-light:#FAF7F3;
+      --white:      #FFFFFF;
+      --text:       #3B1A1A;
+      --text-mid:   #7A4A45;
+      --border:     rgba(107,26,24,0.12);
+      --radius:     10px;
+      --font-head:  'Roboto', system-ui, sans-serif;
+      --font-body:  'Montserrat', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream-light);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--dark);
+      padding: 28px 40px 0;
+    }
+    .header__logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .header__logo img { height: 44px; width: auto; }
+    .header__inner {
+      max-width: 760px;
+      padding-bottom: 48px;
+    }
+    .header__tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sand);
+      border: 1px solid rgba(212,173,130,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    header h1 span { color: var(--sand); }
+    .header__intro {
+      margin-top: 20px;
+      font-size: 0.88rem;
+      color: rgba(245,240,234,0.75);
+      line-height: 1.85;
+      max-width: 640px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.06);
+      border-left: 3px solid var(--sand);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    /* ── Progression ── */
+    .progress-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .progress-nav a {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      padding: 5px 10px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .progress-nav a:hover {
+      background: var(--dark);
+      color: var(--white);
+      border-color: var(--dark);
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Section ── */
+    .q-section {
+      margin-bottom: 48px;
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 24px rgba(107,26,24,0.06);
+    }
+    .q-section__head {
+      background: var(--dark);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .q-section__num {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: var(--sand);
+      flex-shrink: 0;
+    }
+    .q-section__title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .q-section__sub {
+      font-size: 0.68rem;
+      color: rgba(212,173,130,0.7);
+      margin-top: 2px;
+      font-style: italic;
+    }
+    .q-section__body {
+      padding: 8px 0;
+    }
+
+    /* ── Question ── */
+    .question {
+      padding: 22px 28px;
+      border-bottom: 1px solid rgba(107,26,24,0.06);
+    }
+    .question:last-child { border-bottom: none; }
+    .question__label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .question__num {
+      color: var(--dark);
+      font-family: var(--font-head);
+      font-weight: 700;
+    }
+
+    /* ── Options ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .options--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: all 0.18s;
+      background: var(--cream-light);
+    }
+    .option:hover { border-color: var(--dark); background: rgba(107,26,24,0.04); }
+    .option input[type="checkbox"],
+    .option input[type="radio"] {
+      width: 17px; height: 17px;
+      accent-color: var(--dark);
+      flex-shrink: 0;
+      margin-top: 1px;
+      cursor: pointer;
+    }
+    .option input:checked ~ span { color: var(--dark); font-weight: 500; }
+    .option span { font-size: 0.84rem; color: var(--text); line-height: 1.5; }
+
+    /* ── Autre ── */
+    .autre-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--cream-light);
+      transition: all 0.18s;
+    }
+    .autre-wrap:focus-within { border-color: var(--dark); background: rgba(107,26,24,0.04); }
+    .autre-wrap input[type="checkbox"],
+    .autre-wrap input[type="radio"] {
+      width: 17px; height: 17px;
+      accent-color: var(--dark);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .autre-wrap label { font-size: 0.84rem; color: var(--text); white-space: nowrap; }
+    .autre-text {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      color: var(--text);
+      outline: none;
+      min-width: 0;
+    }
+    .autre-text::placeholder { color: rgba(59,26,26,0.35); }
+
+    /* ── Textarea ── */
+    .free-answer {
+      width: 100%;
+      min-height: 80px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text);
+      background: var(--cream-light);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.18s;
+      line-height: 1.6;
+    }
+    .free-answer:focus { border-color: var(--dark); background: var(--white); }
+    .free-answer::placeholder { color: rgba(59,26,26,0.3); font-style: italic; }
+
+    /* ── Submit ── */
+    .submit-section {
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .submit-section p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-submit {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 18px 52px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(107,26,24,0.25);
+    }
+    .btn-submit:hover {
+      background: var(--dark-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(107,26,24,0.3);
+    }
+
+    /* ── Success ── */
+    .success-banner {
+      display: none;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      color: #2e7d32;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-mid);
+    }
+    footer img { height: 32px; margin-bottom: 10px; display: block; margin: 0 auto 10px; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      header { padding: 20px 20px 0; }
+      .header__inner { padding-bottom: 32px; }
+      main { padding: 24px 14px 60px; }
+      .progress-nav { padding: 10px 16px; }
+      .q-section__head { padding: 16px 18px; }
+      .question { padding: 18px 18px; }
+      .options--grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="header__logo">
+      <img src="https://revelez-votre-activite.vercel.app/favicon.png" alt="holistic. academy" />
+    </div>
+    <div class="header__inner">
+      <div class="header__tag">Questionnaire pré-formation</div>
+      <h1>Questionnaire de positionnement<br><span>« Révélez votre activité »</span></h1>
+      <div class="header__intro">
+        Merci de prendre 15 à 20 minutes pour répondre à ce questionnaire avant notre première session. Il n'y a pas de bonnes ou de mauvaises réponses : plus vous êtes sincère, plus je pourrai construire un parcours réellement personnalisé pour vous. Vous pouvez cocher une ou plusieurs cases par question, et préciser votre réponse librement via l'option Autre.
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ NAV SECTIONS ══ -->
+  <nav class="progress-nav" aria-label="Sections">
+    <a href="#s1">1 · Vous & votre entreprise</a>
+    <a href="#s2">2 · Rentabilité & tarifs</a>
+    <a href="#s3">3 · Offre & positionnement</a>
+    <a href="#s4">4 · Visibilité digitale</a>
+    <a href="#s5">5 · Vente & relation client</a>
+    <a href="#s6">6 · Outils IA</a>
+    <a href="#s7">7 · Points forts & blocages</a>
+    <a href="#s8">8 · Attentes</a>
+    <a href="#s9">9 · Un mot de vous</a>
+  </nav>
+
+  <!-- ══ FORM ══ -->
+  <main>
+    <form action="https://formsubmit.co/alice.rota@lakshmi-france.com" method="POST">
+      <input type="hidden" name="_subject" value="Questionnaire pré-formation — Révélez votre activité" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+
+      <!-- ── S1 · Vous & votre entreprise ── -->
+      <div class="q-section" id="s1">
+        <div class="q-section__head">
+          <div class="q-section__num">1</div>
+          <div>
+            <div class="q-section__title">Vous & votre entreprise</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.1</span> · Quel est le nom de votre entreprise / institut, et où êtes-vous installée ?</label>
+            <textarea class="free-answer" name="1.1 Entreprise et lieu" placeholder="Nom de l'entreprise, ville..."></textarea>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.2</span> · Depuis combien de temps exercez-vous ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="1.2 Ancienneté" value="Moins de 2 ans" /><span>Moins de 2 ans</span></label>
+              <label class="option"><input type="radio" name="1.2 Ancienneté" value="2 à 5 ans" /><span>2 à 5 ans</span></label>
+              <label class="option"><input type="radio" name="1.2 Ancienneté" value="5 à 10 ans" /><span>5 à 10 ans</span></label>
+              <label class="option"><input type="radio" name="1.2 Ancienneté" value="Plus de 10 ans" /><span>Plus de 10 ans</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.3</span> · Quel est votre statut ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="1.3 Statut" value="Auto-entrepreneure / micro-entreprise" /><span>Auto-entrepreneure / micro-entreprise</span></label>
+              <label class="option"><input type="radio" name="1.3 Statut" value="EURL / SARL" /><span>EURL / SARL</span></label>
+              <label class="option"><input type="radio" name="1.3 Statut" value="Salariée" /><span>Salariée</span></label>
+              <div class="autre-wrap"><input type="radio" name="1.3 Statut" value="Autre" /><label>Autre :</label><input type="text" name="1.3 Statut (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.4</span> · Travaillez-vous seule ou avec une équipe ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="1.4 Équipe" value="Seule" /><span>Seule</span></label>
+              <label class="option"><input type="radio" name="1.4 Équipe" value="Avec une ou plusieurs salariées" /><span>Avec une ou plusieurs salariées</span></label>
+              <label class="option"><input type="radio" name="1.4 Équipe" value="Avec des indépendantes associées" /><span>Avec des indépendantes associées</span></label>
+              <div class="autre-wrap"><input type="radio" name="1.4 Équipe" value="Autre" /><label>Autre :</label><input type="text" name="1.4 Équipe (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.5</span> · Quel type de lieu d'exercice ?</label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="1.5 Lieu" value="Institut en centre-ville" /><span>Institut en centre-ville</span></label>
+              <label class="option"><input type="checkbox" name="1.5 Lieu" value="Institut en zone commerciale" /><span>Institut en zone commerciale</span></label>
+              <label class="option"><input type="checkbox" name="1.5 Lieu" value="À domicile" /><span>À domicile</span></label>
+              <label class="option"><input type="checkbox" name="1.5 Lieu" value="Itinérante" /><span>Itinérante</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="1.5 Lieu" value="Autre" /><label>Autre :</label><input type="text" name="1.5 Lieu (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.6</span> · Combien de clientes actives régulières estimez-vous avoir ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="1.6 Clientes" value="Moins de 20" /><span>Moins de 20</span></label>
+              <label class="option"><input type="radio" name="1.6 Clientes" value="20 à 50" /><span>20 à 50</span></label>
+              <label class="option"><input type="radio" name="1.6 Clientes" value="50 à 100" /><span>50 à 100</span></label>
+              <label class="option"><input type="radio" name="1.6 Clientes" value="Plus de 100" /><span>Plus de 100</span></label>
+              <label class="option"><input type="radio" name="1.6 Clientes" value="Je ne sais pas précisément" /><span>Je ne sais pas précisément</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.7</span> · Comment gérez-vous vos rendez-vous aujourd'hui ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="1.7 Rdv" value="Par téléphone / SMS" /><span>Par téléphone / SMS</span></label>
+              <label class="option"><input type="checkbox" name="1.7 Rdv" value="Agenda papier" /><span>Agenda papier</span></label>
+              <label class="option"><input type="checkbox" name="1.7 Rdv" value="Plateforme en ligne (Planity, Treatwell, Fresha, Shore...)" /><span>Plateforme de prise de rdv en ligne (Planity, Treatwell, Fresha, Shore...)</span></label>
+              <label class="option"><input type="checkbox" name="1.7 Rdv" value="Réseaux sociaux (messages privés)" /><span>Réseaux sociaux (messages privés)</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="1.7 Rdv" value="Autre" /><label>Autre :</label><input type="text" name="1.7 Rdv (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.8</span> · Si vous utilisez une plateforme en ligne, laquelle ?</label>
+            <textarea class="free-answer" name="1.8 Plateforme en ligne" placeholder="Nom de la plateforme..." rows="2"></textarea>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">1.9</span> · Comment gérez-vous votre comptabilité et votre administratif ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="1.9 Comptabilité" value="Moi-même" /><span>Moi-même</span></label>
+              <label class="option"><input type="checkbox" name="1.9 Comptabilité" value="Un(e) comptable / une société de comptabilité" /><span>Un(e) comptable / une société de comptabilité</span></label>
+              <label class="option"><input type="checkbox" name="1.9 Comptabilité" value="Un logiciel dédié" /><span>Un logiciel dédié</span></label>
+              <label class="option"><input type="checkbox" name="1.9 Comptabilité" value="Je ne sais pas trop, ce n'est pas clair pour moi" /><span>Je ne sais pas trop, ce n'est pas clair pour moi</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="1.9 Comptabilité" value="Autre" /><label>Autre :</label><input type="text" name="1.9 Comptabilité (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S2 · Rentabilité & tarifs ── -->
+      <div class="q-section" id="s2">
+        <div class="q-section__head">
+          <div class="q-section__num">2</div>
+          <div>
+            <div class="q-section__title">Rentabilité & tarifs</div>
+            <div class="q-section__sub">Ce qu'on abordera le Jour 1 de la formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.1</span> · Savez-vous calculer précisément le coût de revient d'un soin ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="2.1 Coût de revient" value="Oui, je le fais systématiquement" /><span>Oui, je le fais systématiquement</span></label>
+              <label class="option"><input type="radio" name="2.1 Coût de revient" value="J'ai une idée approximative" /><span>J'ai une idée approximative</span></label>
+              <label class="option"><input type="radio" name="2.1 Coût de revient" value="Non, je fixe mes prix « au feeling »" /><span>Non, je fixe mes prix « au feeling »</span></label>
+              <label class="option"><input type="radio" name="2.1 Coût de revient" value="Je ne sais pas comment faire" /><span>Je ne sais pas comment faire</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.2</span> · Comment fixez-vous vos tarifs aujourd'hui ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="2.2 Tarifs" value="En regardant la concurrence" /><span>En regardant la concurrence</span></label>
+              <label class="option"><input type="checkbox" name="2.2 Tarifs" value="Selon mon ressenti" /><span>Selon mon ressenti</span></label>
+              <label class="option"><input type="checkbox" name="2.2 Tarifs" value="Selon un calcul de coût de revient" /><span>Selon un calcul de coût de revient</span></label>
+              <label class="option"><input type="checkbox" name="2.2 Tarifs" value="Ils n'ont jamais été révisés depuis le lancement" /><span>Ils n'ont jamais été révisés depuis le lancement</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="2.2 Tarifs" value="Autre" /><label>Autre :</label><input type="text" name="2.2 Tarifs (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.3</span> · Vos tarifs actuels reflètent-ils vraiment votre expertise, selon vous ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="2.3 Tarifs et expertise" value="Oui, tout à fait" /><span>Oui, tout à fait</span></label>
+              <label class="option"><input type="radio" name="2.3 Tarifs et expertise" value="Plutôt oui" /><span>Plutôt oui</span></label>
+              <label class="option"><input type="radio" name="2.3 Tarifs et expertise" value="Plutôt non" /><span>Plutôt non</span></label>
+              <label class="option"><input type="radio" name="2.3 Tarifs et expertise" value="Pas du tout" /><span>Pas du tout</span></label>
+              <label class="option"><input type="radio" name="2.3 Tarifs et expertise" value="Je ne sais pas" /><span>Je ne sais pas</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.4</span> · Parmi ces charges, lesquelles connaissez-vous précisément ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="Le loyer" /><span>Le loyer</span></label>
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="Les charges sociales" /><span>Les charges sociales</span></label>
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="Le coût des produits utilisés" /><span>Le coût des produits utilisés</span></label>
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="L'amortissement de mes machines" /><span>L'amortissement de mes machines</span></label>
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="L'électricité et l'eau" /><span>L'électricité et l'eau</span></label>
+              <label class="option"><input type="checkbox" name="2.4 Charges" value="Aucune de ces charges précisément" /><span>Aucune de ces charges précisément</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="2.4 Charges" value="Autre" /><label>Autre :</label><input type="text" name="2.4 Charges (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.5</span> · Ressentez-vous une gêne à parler d'argent avec vos clientes ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="2.5 Gêne argent" value="Oui, souvent" /><span>Oui, souvent</span></label>
+              <label class="option"><input type="radio" name="2.5 Gêne argent" value="Parfois" /><span>Parfois</span></label>
+              <label class="option"><input type="radio" name="2.5 Gêne argent" value="Rarement" /><span>Rarement</span></label>
+              <label class="option"><input type="radio" name="2.5 Gêne argent" value="Jamais" /><span>Jamais</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">2.6</span> · Qu'est-ce qui vous freine le plus à revoir vos tarifs si besoin ?</label>
+            <textarea class="free-answer" name="2.6 Frein tarifs"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S3 · Offre & positionnement ── -->
+      <div class="q-section" id="s3">
+        <div class="q-section__head">
+          <div class="q-section__num">3</div>
+          <div>
+            <div class="q-section__title">Offre & positionnement</div>
+            <div class="q-section__sub">Ce qu'on abordera le Jour 2 de la formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.1</span> · Sauriez-vous résumer votre activité et ce qui vous différencie, en une phrase ?</label>
+            <textarea class="free-answer" name="3.1 Phrase différenciante" placeholder="En une phrase, mon activité c'est..."></textarea>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.2</span> · Comment est organisée votre carte de soins aujourd'hui ?</label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="3.2 Carte de soins" value="Par zone du corps" /><span>Par zone du corps</span></label>
+              <label class="option"><input type="checkbox" name="3.2 Carte de soins" value="Par technologie utilisée" /><span>Par technologie utilisée</span></label>
+              <label class="option"><input type="checkbox" name="3.2 Carte de soins" value="Par objectif client (minceur, anti-âge...)" /><span>Par objectif client (minceur, anti-âge...)</span></label>
+              <label class="option"><input type="checkbox" name="3.2 Carte de soins" value="Elle n'est pas vraiment structurée" /><span>Elle n'est pas vraiment structurée</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="3.2 Carte de soins" value="Autre" /><label>Autre :</label><input type="text" name="3.2 Carte de soins (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.3</span> · Avez-vous un soin « signature », identifié comme LE soin phare de votre institut ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="3.3 Soin signature" value="Oui" /><span>Oui</span></label>
+              <label class="option"><input type="radio" name="3.3 Soin signature" value="Non" /><span>Non</span></label>
+              <label class="option"><input type="radio" name="3.3 Soin signature" value="Je n'y ai pas encore pensé" /><span>Je n'y ai pas encore pensé</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.4</span> · Diriez-vous que vous êtes plutôt...</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="3.4 Spécialisation" value="Très généraliste" /><span>Très généraliste</span></label>
+              <label class="option"><input type="radio" name="3.4 Spécialisation" value="Plutôt généraliste" /><span>Plutôt généraliste</span></label>
+              <label class="option"><input type="radio" name="3.4 Spécialisation" value="Plutôt spécialisée" /><span>Plutôt spécialisée</span></label>
+              <label class="option"><input type="radio" name="3.4 Spécialisation" value="Très spécialisée" /><span>Très spécialisée</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.5</span> · Quelles sont vos spécialités ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Soins visage" /><span>Soins visage</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Soins corps" /><span>Soins corps</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Massages / bien-être" /><span>Massages / bien-être</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Épilation" /><span>Épilation</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Manucure / pédicure / onglerie" /><span>Manucure / pédicure / onglerie</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Maquillage" /><span>Maquillage</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Minceur" /><span>Minceur</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Anti-âge" /><span>Anti-âge</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Technologies / machines" /><span>Technologies / machines</span></label>
+              <label class="option"><input type="checkbox" name="3.5 Spécialités" value="Ayurveda / approches holistiques" /><span>Ayurveda / approches holistiques</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="3.5 Spécialités" value="Autre" /><label>Autre :</label><input type="text" name="3.5 Spécialités (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.6</span> · Qui est votre cliente idéale (âge, besoins, style de vie) ?</label>
+            <textarea class="free-answer" name="3.6 Cliente idéale"></textarea>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">3.7</span> · D'après vous, pourquoi vos clientes vous apprécient-elles le plus ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Mon écoute, mon relationnel" /><span>Mon écoute, mon relationnel</span></label>
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Mon expertise technique" /><span>Mon expertise technique</span></label>
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Les résultats obtenus" /><span>Les résultats obtenus</span></label>
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="L'ambiance et le cadre de l'institut" /><span>L'ambiance et le cadre de l'institut</span></label>
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Mes tarifs" /><span>Mes tarifs</span></label>
+              <label class="option"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Ma disponibilité / flexibilité" /><span>Ma disponibilité / flexibilité</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="3.7 Pourquoi appréciées" value="Autre" /><label>Autre :</label><input type="text" name="3.7 Pourquoi appréciées (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S4 · Visibilité digitale ── -->
+      <div class="q-section" id="s4">
+        <div class="q-section__head">
+          <div class="q-section__num">4</div>
+          <div>
+            <div class="q-section__title">Visibilité digitale</div>
+            <div class="q-section__sub">Ce qu'on abordera le Jour 3 de la formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.1</span> · Où êtes-vous présente aujourd'hui ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Site internet" /><span>Site internet</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Instagram" /><span>Instagram</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Facebook" /><span>Facebook</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="TikTok" /><span>TikTok</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Google Business Profile" /><span>Google Business Profile (fiche Google)</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Newsletter / e-mailing" /><span>Newsletter / e-mailing</span></label>
+              <label class="option"><input type="checkbox" name="4.1 Présence digitale" value="Aucune" /><span>Aucune de ces options</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="4.1 Présence digitale" value="Autre" /><label>Autre :</label><input type="text" name="4.1 Présence digitale (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.2</span> · Qui s'occupe de vos réseaux sociaux et de votre communication ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="4.2 Gestion réseaux" value="Moi-même" /><span>Moi-même</span></label>
+              <label class="option"><input type="radio" name="4.2 Gestion réseaux" value="Un(e) prestataire" /><span>Un(e) prestataire</span></label>
+              <label class="option"><input type="radio" name="4.2 Gestion réseaux" value="Un membre de la famille" /><span>Un membre de la famille</span></label>
+              <label class="option"><input type="radio" name="4.2 Gestion réseaux" value="Personne, ils sont à l'abandon" /><span>Personne, ils sont à l'abandon</span></label>
+              <div class="autre-wrap"><input type="radio" name="4.2 Gestion réseaux" value="Autre" /><label>Autre :</label><input type="text" name="4.2 Gestion réseaux (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.3</span> · Combien de temps par semaine consacrez-vous à votre communication ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="4.3 Temps communication" value="Moins d'1h" /><span>Moins d'1h</span></label>
+              <label class="option"><input type="radio" name="4.3 Temps communication" value="1 à 3h" /><span>1 à 3h</span></label>
+              <label class="option"><input type="radio" name="4.3 Temps communication" value="3 à 5h" /><span>3 à 5h</span></label>
+              <label class="option"><input type="radio" name="4.3 Temps communication" value="Plus de 5h" /><span>Plus de 5h</span></label>
+              <label class="option"><input type="radio" name="4.3 Temps communication" value="Aucun" /><span>Aucun</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.4</span> · Publiez-vous avec une ligne éditoriale ou plutôt au coup par coup ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="4.4 Ligne éditoriale" value="Ligne éditoriale claire" /><span>Ligne éditoriale claire</span></label>
+              <label class="option"><input type="radio" name="4.4 Ligne éditoriale" value="Au feeling, selon l'envie" /><span>Au feeling, selon l'envie</span></label>
+              <label class="option"><input type="radio" name="4.4 Ligne éditoriale" value="Je ne publie quasiment jamais" /><span>Je ne publie quasiment jamais</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.5</span> · Comment qualifieriez-vous votre présence en ligne aujourd'hui ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="4.5 Qualité présence" value="Active et régulière" /><span>Active et régulière</span></label>
+              <label class="option"><input type="radio" name="4.5 Qualité présence" value="Présente, mais peu active" /><span>Présente, mais peu active</span></label>
+              <label class="option"><input type="radio" name="4.5 Qualité présence" value="Quasi inexistante" /><span>Quasi inexistante</span></label>
+              <label class="option"><input type="radio" name="4.5 Qualité présence" value="Je ne sais pas trop par où commencer" /><span>Je ne sais pas trop par où commencer</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.6</span> · Répondez-vous à vos avis Google ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="4.6 Avis Google" value="Je réponds à tous" /><span>Je réponds à tous</span></label>
+              <label class="option"><input type="radio" name="4.6 Avis Google" value="Je réponds parfois" /><span>Je réponds parfois</span></label>
+              <label class="option"><input type="radio" name="4.6 Avis Google" value="Je ne réponds jamais" /><span>Je ne réponds jamais</span></label>
+              <label class="option"><input type="radio" name="4.6 Avis Google" value="Je ne sais même pas combien j'en ai" /><span>Je ne sais même pas combien j'en ai</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.7</span> · Vos clientes vous trouvent plutôt via : <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="4.7 Source clientes" value="Le bouche-à-oreille" /><span>Le bouche-à-oreille</span></label>
+              <label class="option"><input type="checkbox" name="4.7 Source clientes" value="Google" /><span>Google</span></label>
+              <label class="option"><input type="checkbox" name="4.7 Source clientes" value="Les réseaux sociaux" /><span>Les réseaux sociaux</span></label>
+              <label class="option"><input type="checkbox" name="4.7 Source clientes" value="Le passage devant la vitrine" /><span>Le passage devant la vitrine</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="4.7 Source clientes" value="Autre" /><label>Autre :</label><input type="text" name="4.7 Source clientes (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">4.8</span> · Avez-vous déjà utilisé de la publicité payante (Meta Ads, Google Ads) ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="4.8 Pub payante" value="Oui" /><span>Oui</span></label>
+              <label class="option"><input type="radio" name="4.8 Pub payante" value="Non" /><span>Non</span></label>
+              <label class="option"><input type="radio" name="4.8 Pub payante" value="Je ne sais pas ce que c'est" /><span>Je ne sais pas ce que c'est</span></label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S5 · Vente & relation client ── -->
+      <div class="q-section" id="s5">
+        <div class="q-section__head">
+          <div class="q-section__num">5</div>
+          <div>
+            <div class="q-section__title">Vente & relation client</div>
+            <div class="q-section__sub">Ce qu'on abordera le Jour 4 de la formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">5.1</span> · Vous arrive-t-il de recommander un soin ou un produit complémentaire à une cliente ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="5.1 Recommandation" value="Systématiquement" /><span>Systématiquement</span></label>
+              <label class="option"><input type="radio" name="5.1 Recommandation" value="Souvent" /><span>Souvent</span></label>
+              <label class="option"><input type="radio" name="5.1 Recommandation" value="Rarement" /><span>Rarement</span></label>
+              <label class="option"><input type="radio" name="5.1 Recommandation" value="Jamais, je n'ose pas" /><span>Jamais, je n'ose pas</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">5.2</span> · Qu'est-ce qui vous met le plus mal à l'aise dans la vente ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="5.2 Malaise vente" value="L'impression de forcer la main" /><span>L'impression de forcer la main</span></label>
+              <label class="option"><input type="checkbox" name="5.2 Malaise vente" value="La peur du refus" /><span>La peur du refus</span></label>
+              <label class="option"><input type="checkbox" name="5.2 Malaise vente" value="La peur de paraître trop commerciale" /><span>La peur de paraître trop commerciale</span></label>
+              <label class="option"><input type="checkbox" name="5.2 Malaise vente" value="Je ne sais pas comment amener le sujet" /><span>Je ne sais pas comment amener le sujet</span></label>
+              <label class="option"><input type="checkbox" name="5.2 Malaise vente" value="Rien, je suis à l'aise avec ça" /><span>Rien, je suis à l'aise avec ça</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="5.2 Malaise vente" value="Autre" /><label>Autre :</label><input type="text" name="5.2 Malaise vente (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">5.3</span> · Avez-vous un système de suivi ou de relance de vos clientes ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="5.3 Suivi clientes" value="Oui, structuré" /><span>Oui, structuré</span></label>
+              <label class="option"><input type="radio" name="5.3 Suivi clientes" value="Un peu, au cas par cas" /><span>Un peu, au cas par cas</span></label>
+              <label class="option"><input type="radio" name="5.3 Suivi clientes" value="Non, aucun" /><span>Non, aucun</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">5.4</span> · Avez-vous un programme de fidélité ?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="5.4 Fidélité" value="Oui" /><span>Oui</span></label>
+              <label class="option"><input type="radio" name="5.4 Fidélité" value="Non" /><span>Non</span></label>
+              <label class="option"><input type="radio" name="5.4 Fidélité" value="J'y pense, sans l'avoir mis en place" /><span>J'y pense, sans l'avoir mis en place</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">5.5</span> · Quelle part de vos clientes reviennent régulièrement, selon vous ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="5.5 Fidélisation" value="Moins de 20 %" /><span>Moins de 20 %</span></label>
+              <label class="option"><input type="radio" name="5.5 Fidélisation" value="20 à 50 %" /><span>20 à 50 %</span></label>
+              <label class="option"><input type="radio" name="5.5 Fidélisation" value="50 à 80 %" /><span>50 à 80 %</span></label>
+              <label class="option"><input type="radio" name="5.5 Fidélisation" value="Plus de 80 %" /><span>Plus de 80 %</span></label>
+              <label class="option"><input type="radio" name="5.5 Fidélisation" value="Je ne sais pas" /><span>Je ne sais pas</span></label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S6 · Outils IA ── -->
+      <div class="q-section" id="s6">
+        <div class="q-section__head">
+          <div class="q-section__num">6</div>
+          <div>
+            <div class="q-section__title">Outils IA</div>
+            <div class="q-section__sub">Ce qu'on abordera le Jour 5 de la formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">6.1</span> · Avez-vous déjà utilisé un outil d'intelligence artificielle (ChatGPT, Canva IA...) ?</label>
+            <div class="options options--grid">
+              <label class="option"><input type="radio" name="6.1 Utilisation IA" value="Jamais" /><span>Jamais</span></label>
+              <label class="option"><input type="radio" name="6.1 Utilisation IA" value="Une ou deux fois par curiosité" /><span>Une ou deux fois par curiosité</span></label>
+              <label class="option"><input type="radio" name="6.1 Utilisation IA" value="Occasionnellement" /><span>Occasionnellement</span></label>
+              <label class="option"><input type="radio" name="6.1 Utilisation IA" value="Régulièrement" /><span>Régulièrement</span></label>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">6.2</span> · Qu'est-ce qui vous freine le plus à utiliser l'IA ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="6.2 Frein IA" value="Je ne sais pas par où commencer" /><span>Je ne sais pas par où commencer</span></label>
+              <label class="option"><input type="checkbox" name="6.2 Frein IA" value="Je n'ai pas le temps d'apprendre" /><span>Je n'ai pas le temps d'apprendre</span></label>
+              <label class="option"><input type="checkbox" name="6.2 Frein IA" value="Peur de perdre en authenticité" /><span>Peur de perdre en authenticité</span></label>
+              <label class="option"><input type="checkbox" name="6.2 Frein IA" value="Peur de mal faire" /><span>Peur de mal faire</span></label>
+              <label class="option"><input type="checkbox" name="6.2 Frein IA" value="Rien, je suis partante" /><span>Rien, je suis partante</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="6.2 Frein IA" value="Autre" /><label>Autre :</label><input type="text" name="6.2 Frein IA (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">6.3</span> · Quelles tâches aimeriez-vous déléguer à l'IA en priorité ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="6.3 Tâches IA" value="Rédaction de posts réseaux sociaux" /><span>Rédaction de posts réseaux sociaux</span></label>
+              <label class="option"><input type="checkbox" name="6.3 Tâches IA" value="Réponses aux avis clients" /><span>Réponses aux avis clients</span></label>
+              <label class="option"><input type="checkbox" name="6.3 Tâches IA" value="E-mails à mes clientes" /><span>E-mails à mes clientes</span></label>
+              <label class="option"><input type="checkbox" name="6.3 Tâches IA" value="Visuels et supports de communication" /><span>Visuels et supports de communication</span></label>
+              <label class="option"><input type="checkbox" name="6.3 Tâches IA" value="Tâches administratives" /><span>Tâches administratives</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="6.3 Tâches IA" value="Autre" /><label>Autre :</label><input type="text" name="6.3 Tâches IA (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S7 · Points forts & blocages ── -->
+      <div class="q-section" id="s7">
+        <div class="q-section__head">
+          <div class="q-section__num">7</div>
+          <div>
+            <div class="q-section__title">Vos points forts & points de blocage</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">7.1</span> · Selon vous, quels sont vos points forts dans la gestion de votre activité ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options options--grid">
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="La relation client" /><span>La relation client</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="L'expertise technique" /><span>L'expertise technique</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="L'organisation" /><span>L'organisation</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="La vente / le conseil produit" /><span>La vente / le conseil produit</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="La communication / les réseaux sociaux" /><span>La communication / les réseaux sociaux</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="La gestion administrative" /><span>La gestion administrative</span></label>
+              <label class="option"><input type="checkbox" name="7.1 Points forts" value="La créativité" /><span>La créativité</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="7.1 Points forts" value="Autre" /><label>Autre :</label><input type="text" name="7.1 Points forts (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">7.2</span> · Qu'est-ce qui vous coûte le plus aujourd'hui ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Fixer mes prix" /><span>Fixer mes prix</span></label>
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Me faire connaître / attirer de nouvelles clientes" /><span>Me faire connaître / attirer de nouvelles clientes</span></label>
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Vendre / proposer des produits ou soins complémentaires" /><span>Vendre / proposer des produits ou soins complémentaires</span></label>
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Gérer mon temps" /><span>Gérer mon temps</span></label>
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Structurer mon offre de soins" /><span>Structurer mon offre de soins</span></label>
+              <label class="option"><input type="checkbox" name="7.2 Points de blocage" value="Utiliser les outils numériques / l'intelligence artificielle" /><span>Utiliser les outils numériques / l'intelligence artificielle</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="7.2 Points de blocage" value="Autre" /><label>Autre :</label><input type="text" name="7.2 Points de blocage (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S8 · Attentes ── -->
+      <div class="q-section" id="s8">
+        <div class="q-section__head">
+          <div class="q-section__num">8</div>
+          <div>
+            <div class="q-section__title">Vos attentes pour cette formation</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">8.1</span> · Qu'est-ce qui vous a donné envie de suivre cette formation ?</label>
+            <textarea class="free-answer" name="8.1 Motivation" rows="4"></textarea>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">8.2</span> · Qu'aimeriez-vous que l'on aborde en priorité ? <em style="font-weight:400;color:var(--text-mid)">(plusieurs réponses possibles)</em></label>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="8.2 Priorités" value="Calculer mes tarifs et ma rentabilité réelle" /><span>Calculer mes tarifs et ma rentabilité réelle</span></label>
+              <label class="option"><input type="checkbox" name="8.2 Priorités" value="Clarifier mon positionnement et restructurer ma carte de soins" /><span>Clarifier mon positionnement et restructurer ma carte de soins</span></label>
+              <label class="option"><input type="checkbox" name="8.2 Priorités" value="Développer ma visibilité (réseaux sociaux, Google...)" /><span>Développer ma visibilité (réseaux sociaux, Google...)</span></label>
+              <label class="option"><input type="checkbox" name="8.2 Priorités" value="Oser vendre et fidéliser mes clientes" /><span>Oser vendre et fidéliser mes clientes</span></label>
+              <label class="option"><input type="checkbox" name="8.2 Priorités" value="Utiliser l'intelligence artificielle au quotidien" /><span>Utiliser l'intelligence artificielle au quotidien</span></label>
+              <div class="autre-wrap"><input type="checkbox" name="8.2 Priorités" value="Autre" /><label>Autre :</label><input type="text" name="8.2 Priorités (autre)" class="autre-text" placeholder="précisez..." /></div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label class="question__label"><span class="question__num">8.3</span> · Où aimeriez-vous en être, dans votre activité, d'ici 3 mois ?</label>
+            <textarea class="free-answer" name="8.3 Objectif 3 mois" rows="4"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── S9 · Un mot de vous ── -->
+      <div class="q-section" id="s9">
+        <div class="q-section__head">
+          <div class="q-section__num">9</div>
+          <div>
+            <div class="q-section__title">Un mot de vous</div>
+          </div>
+        </div>
+        <div class="q-section__body">
+          <div class="question">
+            <label class="question__label"><span class="question__num">9.1</span> · Y a-t-il quelque chose que vous aimeriez que je sache avant de commencer ?</label>
+            <textarea class="free-answer" name="9.1 Message libre" rows="5" placeholder="Partagez ce qui vous semble important..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Submit ── -->
+      <div class="submit-section">
+        <p>Merci pour votre temps et votre sincérité. Ces informations resteront strictement confidentielles et serviront uniquement à personnaliser votre parcours.</p>
+        <button type="submit" class="btn-submit">Envoyer mes réponses</button>
+      </div>
+
+    </form>
+  </main>
+
+  <footer>
+    <img src="https://revelez-votre-activite.vercel.app/favicon.png" alt="holistic. academy" />
+    © 2026 holistic. academy · Questionnaire confidentiel
+  </footer>
+
+</body>
+</html>
